@@ -68,22 +68,18 @@ test_db_storage.py'])
                             "{:s} method needs a docstring".format(func[0]))
 
 
-class TestFileStorage(unittest.TestCase):
+class TestDBStorage(unittest.TestCase):
     """Test the FileStorage class"""
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_all_returns_dict(self):
-        """Test that all returns a dictionaty"""
+        """Test that all returns a dictionary"""
         self.assertIs(type(models.storage.all()), dict)
 
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_all_no_class(self):
         """Test that all returns all rows when no class is passed"""
 
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_new(self):
         """test that new adds an object to the database"""
 
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_save(self):
         """Test that save properly saves objects to file.json"""
     def test_get(self):
@@ -95,12 +91,12 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(obj.name, storage.get(State, obj.id).name)
         self.assertIsNot(obj, storage.get(State, obj.id + 'op'))
         self.assertIsNone(storage.get(State, obj.id + 'op'))
-        self.assertIsNone(storage.get(state, 45))
+        selfi.assertIsNone(storage.get(state, 45))
         self.assertIsNone(storage.get(None, obj.id))
         self.assertIsNone(storage.get(int, obj.id))
         with self.assertRaises(TypeError):
             storage.get(State, obj.id, 'op')
-        with self.assertraises(TypeError):
+        with self.assertRaises(TypeError):
             storage.get(State)
         with self.assertRaises(TypeError):
             storage.get()
