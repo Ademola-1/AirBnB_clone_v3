@@ -40,7 +40,7 @@ class FileStorage:
             res = list(
                 filter(
                     lambda x: type(x) is cls and x.id == id,
-                    self.__objects.value()
+                    self.__objects.values()
                 )
             )
             if res:
@@ -72,7 +72,7 @@ class FileStorage:
                 jo = json.load(f)
             for key in jo:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
-        except:
+        except Exception:
             pass
 
     def delete(self, obj=None):
