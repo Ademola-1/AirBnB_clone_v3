@@ -37,6 +37,7 @@ class DBStorage:
                                              HBNB_MYSQL_PWD,
                                              HBNB_MYSQL_HOST,
                                              HBNB_MYSQL_DB))
+        self.__session = sessionmaker(bind=self.__engine)
         if HBNB_ENV == "test":
             Base.metadata.drop_all(self.__engine)
 
