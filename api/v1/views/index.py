@@ -3,6 +3,7 @@
 """This script handles the routes suported
     by the blueprint previously created.
 """
+from flask import Response
 from api.v1.views import app_views
 from models import storage
 import json
@@ -10,7 +11,8 @@ import json
 
 @app_views.route('/status', strict_slashes=False)
 def api_status():
-    return json.dumps({"status": "OK"}, indent=2)
+    status_ok = json.dumps({"status": "OK"}, indent=2)
+    return Response(status_ok, content_type='application/json')
 
 
 @app_views.route('/stats', strict_slashes=False)
@@ -24,4 +26,5 @@ def api_number_of_objs():
 
     for key, value in classes.items():
         classes[key] = storage.count(value)
-    return json.dumps(classes, indent=2)
+    formatted_output = json.dumps(classes, indent=2)
+    return Response(formatted_output, content_type='application/json')
