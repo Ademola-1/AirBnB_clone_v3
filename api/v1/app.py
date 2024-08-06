@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
 """This is the entry point for managing all blueprints"""
 from flask import Flask, Response
 from models import storage
@@ -15,6 +14,11 @@ app.register_blueprint(app_views)
 
 @app.errorhandler(404)
 def not_found_page(error):
+    """
+        not_found_page: Returns a 404 page when resource not found
+        Args:
+            error (exception): this will contain the exception code
+    """
     four_0_four_page = json.dumps({"error": "Not found"}, indent=2)
     return Response(
             four_0_four_page,
