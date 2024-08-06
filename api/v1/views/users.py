@@ -4,7 +4,6 @@
     Focusing majorly on handling all routes
     steaming from /amenities
 """
-
 from flask import Response, jsonify, abort, request
 from api.v1.views import app_views
 from models import storage
@@ -51,7 +50,8 @@ def get_user_by_id(user_id):
                  strict_slashes=False)
 def delete_user_by_id(user_id):
     """
-        delete_user_by_id: a function, when given an ID deletes the object in the DB
+        delete_user_by_id: a function, when given an
+        ID deletes the object in the DB
         Argunments: A User valid ID
         Return: An empty dict with status 200
     """
