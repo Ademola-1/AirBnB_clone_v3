@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
 """This script handles the routes suported
     by the blueprint previously created.
 """
@@ -11,12 +10,21 @@ import json
 
 @app_views.route('/status', strict_slashes=False)
 def api_status():
+    """
+        api_status: a function that "pings" the route to know it's state
+        Return: a response in the form of a json repr
+    """
     status_ok = json.dumps({"status": "OK"}, indent=2)
     return Response(status_ok, content_type='application/json')
 
 
 @app_views.route('/stats', strict_slashes=False)
 def api_number_of_objs():
+    """
+        api_number_objs: a function that fetches all the objects
+                            existing at that route
+        Return: a json representation containing all the objects
+    """
     classes = {"amenities": "Amenity",
                "cities": "City",
                "places": "Place",
