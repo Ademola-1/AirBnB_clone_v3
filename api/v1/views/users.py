@@ -80,7 +80,10 @@ def create_user():
         abort(400, "Missing password")
 
     posted_data = request.get_json()
-    json_repr = json.dumps(posted_data, indent=2)
+    created_user = User(**posted_data)
+    storage.new(created_user)
+    storage.save()
+    json_repr = json.dumps(User(**created_user.__dict__).to_dict(), indent=2)
     return Response(json_repr,  mimetype='application/json', status=201)
 
 

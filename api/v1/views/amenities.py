@@ -75,8 +75,12 @@ def create_amenities():
         abort(400, "Not a JSON")
     if 'name' not in request.json:
         abort(400, "Missing name")
+
     posted_data = request.get_json()
-    json_repr = json.dumps(posted_data, indent=2)
+    created_amenity = Amenity(**posted_data)
+    storage.new(created_amenity)
+    storage.save()
+    json_repr = json.dumps(Amenity(**created_user.__dict__).to_dict(), indent=2)
     return Response(json_repr,  mimetype='application/json', status=201)
 
 
