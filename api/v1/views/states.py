@@ -23,7 +23,7 @@ def handle_states(state_id=None):
     if request.method in handlers:
         return handlers[request.method](state_id)
     else:
-        raise MethodNotAllowed(list(handlers.key()))
+        raise MethodNotAllowed(list(handlers.keys()))
 
 def get_states(state_id=None):
     """Gets the state with the given id or all states."""
@@ -39,7 +39,7 @@ def get_states(state_id=None):
 def remove_state(state_id=None):
     "Removes a state with given id."""
     all_states = storage.all(State).values()
-    res = lsit(filter(lambda x: x.id == state_id, all_states))
+    res = list(filter(lambda x: x.id == state_id, all_states))
     if res:
         storage.delete(res[0])
         storage.save()
@@ -67,10 +67,10 @@ def update_state(state_id=None):
         data = request.get_json()
         if type(data) is not dict:
             raise BadRequest(description="Not a JSON")
-            old_state = rs[0]
-            for key, value in data.items():
-                if key not in xkeys:
-                    setattr(old_state, key, value)
-            old_state.save()
-            return jsonify(old_state.to_dict()), 200
-        raise NotFound()
+        old_state = res[0]
+        for key, value in data.items():
+            if key not in xkeys:
+                setattr(old_state, key, value)
+        old_state.save()
+        return jsonify(old_state.to_dict()), 200
+    raise NotFound()

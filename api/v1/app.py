@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 """This is the entry point for managing all blueprints"""
 from flask import Flask, Response, jsonify
+from werkzeug.exceptions import NotFound
 from models import storage
 from api.v1.views import app_views
-
+import json
 
 # A register of the main flask app
 app = Flask(__name__)
@@ -18,11 +19,12 @@ def not_found_page(error):
         Args:
             error (exception): this will contain the exception code
     """
-    return jsonify({"error": "Not found"}), 404
-
+    response = {"error": "Not found"}
+    response_json = json.dumps(response, indent=2) + '\n'
+    return Response(response_json, status=404, mimetype='application/json')
 
 @app.teardown_appcontext
-def tear_down(exception):
+def teardown_flask(exception):
     """
         tear_down: this function closes the db/storage
         Argunments:
