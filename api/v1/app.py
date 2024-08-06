@@ -19,6 +19,7 @@ def not_found_page(error):
         Args:
             error (exception): this will contain the exception code
     """
+
     response = {"error": "Not found"}
     response_json = json.dumps(response, indent=2) + '\n'
     return Response(response_json, status=404, mimetype='application/json')
