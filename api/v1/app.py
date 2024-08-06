@@ -18,7 +18,12 @@ def not_found_page(error):
         Args:
             error (exception): this will contain the exception code
     """
-    return jsonify({"error": "Not found"}), 404
+
+    four_0_four_page = json.dumps({"error": "Not found"}, indent=2)
+    return Response(
+            f"{four_0_four_page}\n",
+            status=404,
+            content_type='application/json')
 
 
 @app.teardown_appcontext

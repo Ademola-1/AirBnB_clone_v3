@@ -25,7 +25,7 @@ def get_all_users():
         ret_objs = User(**value.__dict__)
         all_objs.append(ret_objs.to_dict())
     completed_json_dump = json.dumps(all_objs, indent=2)
-    return Response(completed_json_dump, mimetype='application/json')
+    return Response(f"{completed_json_dump}\n", mimetype='application/json')
 
 
 @app_views.route('/users/<user_id>',
@@ -43,7 +43,7 @@ def get_user_by_id(user_id):
     if is_obj is None:
         abort(404)
     ret_obj = json.dumps(User(**is_obj.__dict__).to_dict(), indent=2)
-    return Response(ret_obj, mimetype='application/json')
+    return Response(f"{ret_obj}\n", mimetype='application/json')
 
 
 @app_views.route('/users/<user_id>',
@@ -60,7 +60,7 @@ def delete_user_by_id(user_id):
         abort(404)
     storage.delete(is_obj)
     storage.save()
-    return Response(json.dumps({}, indent=2),
+    return Response(f"{json.dumps({}, indent=2)}\n",
                     status=200,
                     mimetype='application/json')
 
@@ -80,8 +80,11 @@ def create_user():
         abort(400, "Missing password")
 
     posted_data = request.get_json()
-    json_repr = json.dumps(posted_data, indent=2)
-    return Response(json_repr,  mimetype='application/json', status=201)
+    created_user = User(**posted_data)
+    storage.new(created_user)
+    storage.save()
+    json_repr = json.dumps(User(**created_user.__dict__).to_dict(), indent=2)
+    return Response(f"{json_repr}\n",  mimetype='application/json', status=201)
 
 
 @app_views.route('/users/<user_id>',
@@ -118,4 +121,4 @@ def update_user(user_id):
     # for further json serialization
     dict_repr = User(**is_obj.__dict__).to_dict()
     json_repr = json.dumps(dict_repr, indent=2)
-    return Response(json_repr,  mimetype='application/json', status=200)
+    return Response(f"{json_repr}\n",  mimetype='application/json', status=200)

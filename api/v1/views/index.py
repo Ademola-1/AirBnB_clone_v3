@@ -15,7 +15,7 @@ def api_status():
         Return: a response in the form of a json repr
     """
     status_ok = json.dumps({"status": "OK"}, indent=2)
-    return Response(status_ok, content_type='application/json')
+    return Response(f"{status_ok}\n", content_type='application/json')
 
 
 @app_views.route('/stats', strict_slashes=False)
@@ -35,4 +35,4 @@ def api_number_of_objs():
     for key, value in classes.items():
         classes[key] = storage.count(value)
     formatted_output = json.dumps(classes, indent=2)
-    return Response(formatted_output, content_type='application/json')
+    return Response(f"{formatted_output}\n", content_type='application/json')
