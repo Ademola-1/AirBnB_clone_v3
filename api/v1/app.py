@@ -21,7 +21,7 @@ def not_found_page(error):
     """
     four_0_four_page = json.dumps({"error": "Not found"}, indent=2)
     return Response(
-            four_0_four_page,
+            f"{four_0_four_page}\n",
             status=404,
             content_type='application/json')
 

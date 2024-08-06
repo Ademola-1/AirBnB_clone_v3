@@ -35,4 +35,4 @@ def api_number_of_objs():
     for key, value in classes.items():
         classes[key] = storage.count(value)
     formatted_output = json.dumps(classes, indent=2)
-    return Response(formatted_output, content_type='application/json')
+    return Response(f"{formatted_output}\n", content_type='application/json')
